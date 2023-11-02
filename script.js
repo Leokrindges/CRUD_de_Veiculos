@@ -17,10 +17,10 @@ while (opcao != 6) {
             listarVeiculos(listaVeiculos)
             break;
         case 3:
-            filraVeiculo()
+            filraVeiculo(listaVeiculos)
             break;
         case 4:
-            AtualizaVeiculo()
+            atualizaVeiculo(listaVeiculos)
             break;
         case 5:
             RemoverVeiculo()
@@ -43,16 +43,24 @@ function cadastraVeiculo() {
     cor = prompt("Digite a cor do Veículo")
     preco = prompt("Digite o preço do Veículo")
 
-    const veiculo = {
-        id,
-        modelo,
-        marca,
-        ano,
-        cor,
-        preco
+    if (modelo == "" || marca == "" || ano == "" || cor == "" || preco == "") {
+        alert("Falha ao cadastrar")
+        criaID--
+    } else {
+        const veiculo = {
+            id,
+            modelo,
+            marca,
+            ano,
+            cor,
+            preco
+        }
+
+        listaVeiculos.push(veiculo)
+        alert("Cadastrado com sucesso")
     }
 
-    listaVeiculos.push(veiculo)
+
 }
 
 function geraId() {
@@ -62,7 +70,39 @@ function geraId() {
 
 
 function listarVeiculos(lista) {
-    lista.forEach((element) => document.write(`ID: ${element.id}| Modelo: ${element.modelo}| Marca: ${element.marca}| Ano: ${element.ano}| Preço: ${element.preco}`))
+    lista.forEach((element) => console.log(`Lista de veiculo cadastrados:\nID: ${element.id}| Modelo: ${element.modelo}| Marca: ${element.marca}| Ano: ${element.ano}| Preço: ${element.preco}\n`))
 }
+
+
+function filraVeiculo(lista) {
+    let marca = prompt("Qual é a marca do veiculo?")
+
+    const carros = lista.filter((carro) => carro.marca == marca)
+
+    carros.forEach((element) => console.log(`ID: ${element.id}| Cor: ${element.cor}| Preço: R$${element.preco}`))
+
+}
+
+
+function atualizaVeiculo(lista) {
+    let identificador = Number(prompt("Qual é o identificador do veiculo?"))
+
+    const idSelecionado = lista.filter((pegaId) => pegaId.id == identificador)
+    if (idSelecionado.length == 0) {
+        alert("Veiculo não encontrado")
+    } else {
+        let novaCor = prompt("Digite a nova cor.")
+        let novoPreco = Number(prompt("Digite o novo preço."))
+
+
+        // EM DESENVOLVIMENTO
+        
+        // const listaAtualizada = idSelecionado.forEach((element) => element.cor = novaCor, element.preco = novoPreco);
+        // lista.splice(idSelecionado - 1, 0, listaAtualizada)
+    }
+    console.log(idSelecionado);
+
+}
+
 
 console.log(listaVeiculos);
